@@ -4,6 +4,7 @@ const Rollbar = require("rollbar")
 
 const students =[]
 const app = express();
+app.use(express.json())
 
 let rollbar = new Rollbar({
   accessToken: "a193da806b10417da3cf2ee4911e1364",
