@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const Rollbar = require("rollbar")
+
+const students =[]
 const app = express();
 
 let rollbar = new Rollbar({
@@ -13,10 +15,19 @@ app.get("/",(req,res) => {
   rollbar.info("HTML file served successfully!")
 })
 
+app.post("/api/student",(req,res) =>{
+  const{name} = req.bodyname = name.trim();
+  students.push(name)
+
+  rollbar.log("Student added successfully", {author: "Ethan", type: "Manual entry"})
+  
+  res.status(200).send(students)
+})
+
 
 
 const port = process.env.PORT || 4545;
-
+app.use(rollbar.errorHandler())
 app.listen(port, () =>{
   console.log(`They're taking the Hobbits to ${port}!`)
 })
